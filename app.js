@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 
 var sensors = require('./routes/sensors');
 var mobile = require('./routes/mobile');
+var preferences = require('./routes/preferences');
 
 var app = express();
 
@@ -16,6 +17,7 @@ app.use(cookieParser());
 
 app.use('/ws/sensors', sensors);
 app.use('/ws/mobile', mobile);
+app.use('/ws/mobile/preferences', preferences);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -32,7 +34,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send({ error: err.message });
 });
 
 module.exports = app;
