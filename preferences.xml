@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<preferences>
+  <medicineTime>
+    <hour>8</hour>
+    <minute>30</minute>
+  </medicineTime>
+  <sleepTime>
+    <to>
+      <hour>23</hour>
+      <minute>00</minute>
+    </to>
+    <from>
+      <hour>10</hour>
+      <minute>00</minute>
+    </from>
+  </sleepTime>
+</preferences>
