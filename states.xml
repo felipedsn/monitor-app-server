@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<states>
+  <medicineTime>
+    <hour>11</hour>
+    <minute>45</minute>
+  </medicineTime>
+  <sleepTime>
+    <from>
+      <hour>14</hour>
+      <minute>00</minute>
+    </from>
+    <to>
+      <hour>20</hour>
+      <minute>00</minute>
+    </to>
+  </sleepTime>
+  <numberOfPeople>1</numberOfPeople>
+</states>
