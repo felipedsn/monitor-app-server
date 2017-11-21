@@ -1,7 +1,7 @@
 //mongod --dbpath ~/Documents/TCC/server/data
 
 var mongoose = require('mongoose');
-	mongoose.connect('mongodb://localhost:27017/monitorapp');
+	mongoose.connect('mongodb://localhost:27017/monitorapp', { useMongoClient: true });
 
 var sensorSchema = new mongoose.Schema({
 	type : {
