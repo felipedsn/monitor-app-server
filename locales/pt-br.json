@@ -1,0 +1,11 @@
+{
+	"STATUS_ALONE": "At home alone",
+	"STATUS_WITH_VISITOR": {
+		"one": "At home with %s visitor",
+		"other": "At home with %s visitors"
+	},
+	"STATUS_NOT_HOME": "Outisde home",
+	"NO_LAST_MOVEMENT": "No movement detected",
+	"NO_MEDICINE_DETECTED": "No medicine activity detected",
+	"NO_FALL_DETECTED": "No fall detected"
+}

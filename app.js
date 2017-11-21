@@ -3,6 +3,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var i18n = require('./i18n');
 
 var sensors = require('./routes/sensors');
 var mobile = require('./routes/mobile');
@@ -14,6 +15,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(i18n);
 
 app.use('/ws/sensors', sensors);
 app.use('/ws/mobile', mobile);
