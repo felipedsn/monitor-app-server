@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var db = require("../db");
-var CONSTANTS = require("./CONSTANTS");
+var moment = require('moment');
+var CONSTANTS = require("../CONSTANTS");
 var fs = require('fs');
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser({explicitArray : false});
@@ -9,12 +10,12 @@ var xmlFile = __dirname + "/../states.xml";
 
 var Sensors = db.Mongoose.model('sensors', db.SensorSchema, 'sensors');
 
-function getLastMainRegistry() {
+function getLastMainRegistry(callback) {
 	Sensors.findOne().or([
           { $and: [{type: "door"}, {info: "main"}] },
           { $and: [{type: "passage"}, {info: "main"}] }
       ]).sort({createdDate: -1}).exec(function(err, post){
-    	return post;
+    	callback(post);
 	});
 }
 
@@ -35,7 +36,8 @@ function updateNumberOfPeople(update) {
             		console.log("Error parsing XML states file: " + err.message);
 					return;
             	}
-                result.states.numberOfPeople += update;
+                var updatedValue = (Number(result.states.numberOfPeople) + update).toString();
+                result.states.numberOfPeople = updatedValue < 0 ? 0 : updatedValue;
 
                 var builder = new xml2js.Builder();
         		var xmlText = builder.buildObject(result);
@@ -65,12 +67,13 @@ router.post('/', function(req, res) {
 			res.send({ error: "Invalid info for the type door"});
 			return;
 		} else if (info == "main") {
-			var lastMainRegistry = getLastMainRegistry();
-			if (lastMainRegistry !== null && lastMainRegistry.type == "passage" && itsBeenLessThanInterval(lastMainRegistry.createdDate)) {
-				//Left home, so update is minus one
-				console.log("Someone left the house.");
-				updateNumberOfPeople(-1);
-			}
+			getLastMainRegistry(function(lastMainRegistry) {
+				if (lastMainRegistry !== null && lastMainRegistry.type == "passage" && itsBeenLessThanInterval(lastMainRegistry.createdDate)) {
+					//Someone entered the house, so update is plus one
+					console.log("Someone entered the house.");
+					updateNumberOfPeople(1);
+				}
+			});
 		}
 	} else if (type == "passage") {
 		if (info !== "main" && info !== "hall") {
@@ -78,12 +81,13 @@ router.post('/', function(req, res) {
 			res.send({ error: "Invalid info for the type passage"});
 			return;
 		} else if (info == "main") {
-			var lastMainRegistry = getLastMainRegistry();
-			if (lastMainRegistry !== null && lastMainRegistry.type == "door" && itsBeenLessThanInterval(lastMainRegistry.createdDate)) {
-				//Entered home, so update is plus one
-				console.log("Someone entered the house.");
-				updateNumberOfPeople(1)
-			}
+			getLastMainRegistry(function(lastMainRegistry) {
+				if (lastMainRegistry !== null && lastMainRegistry.type == "door" && itsBeenLessThanInterval(lastMainRegistry.createdDate)) {
+					//Someone left the house, so update is minus one
+					console.log("Someone left the house.");
+					updateNumberOfPeople(-1);
+				}
+			});
 		}
 	} else if (type == "moviment") {
 		if (info !== "moving" && info !== "fall") {
