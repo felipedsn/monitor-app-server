@@ -47,8 +47,7 @@ router.get('/last-movement', function(req, res) {
           { $and: [{type: "passage"}, {info: "hall"}] }
       ]).sort({createdDate: -1}).exec(function(err, post){
       	if (post !== null) {
-      		moment.locale("pt-br");
-      		res.send({ time: moment(post.createdDate).format('lll') });
+      		res.send({ time: moment(post.createdDate).format('MMM DD, YYYY HH:mm') });
       	} else {
       		res.send({ time: res.__("NO_LAST_MOVEMENT") });
       	}
@@ -62,8 +61,7 @@ router.get('/last-medicine', function(req, res) {
 	Sensors.findOne({ $and: [{type: "door"}, {info: "medicine"}] })
 			.sort({createdDate: -1}).exec(function(err, post){
       	if (post !== null) {
-      		moment.locale("pt-br");
-      		res.send({ time: moment(post.createdDate).format('lll') });
+      		res.send({ time: moment(post.createdDate).format('MMM DD, YYYY HH:mm') });
       	} else {
       		res.send({ time: res.__("NO_MEDICINE_DETECTED") });
       	}
@@ -77,8 +75,7 @@ router.get('/last-fall', function(req, res) {
 	Sensors.findOne({ $and: [{type: "moviment"}, {info: "fall"}] })
 			.sort({createdDate: -1}).exec(function(err, post){
       	if (post !== null) {
-      		moment.locale("pt-br");
-      		res.send({ time: moment(post.createdDate).format('lll') });
+      		res.send({ time: moment(post.createdDate).format('MMM DD, YYYY HH:mm') });
       	} else {
       		res.send({ time: res.__("NO_FALL_DETECTED") });
       	}
