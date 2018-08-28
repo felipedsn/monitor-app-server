@@ -69,11 +69,16 @@ router.post('/', function(req, res) {
 		} else if (info == "main") {
 			getLastMainRegistry(function(lastMainRegistry) {
 				if (lastMainRegistry !== null && lastMainRegistry.type == "passage" && itsBeenLessThanInterval(lastMainRegistry.createdDate)) {
+					
+					//TODO if current number of people is zero, then send push notification Return Home
+
 					//Someone entered the house, so update is plus one
 					console.log("Someone entered the house.");
 					updateNumberOfPeople(1);
 				}
 			});
+		} else if (info == "medicine") {
+			//TODO if is a medicine event, then send push notification Took Medicine
 		}
 	} else if (type == "passage") {
 		if (info !== "main" && info !== "hall") {
@@ -83,6 +88,9 @@ router.post('/', function(req, res) {
 		} else if (info == "main") {
 			getLastMainRegistry(function(lastMainRegistry) {
 				if (lastMainRegistry !== null && lastMainRegistry.type == "door" && itsBeenLessThanInterval(lastMainRegistry.createdDate)) {
+					
+					//TODO if current number of people is one, then send push notification Left Home
+					
 					//Someone left the house, so update is minus one
 					console.log("Someone left the house.");
 					updateNumberOfPeople(-1);
@@ -94,6 +102,8 @@ router.post('/', function(req, res) {
 			res.status(400);
 			res.send({ error: "Invalid info for the type moviment"});
 			return;
+		} else if (info == "fall") {
+			//TODO if is a fall event, then end push notifiation Fall
 		}
 	}
 

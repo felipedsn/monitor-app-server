@@ -1,4 +1,4 @@
-//mongod --dbpath ~/Documents/TCC/server/data
+//mongod --dbpath ~/Documents/TCC/monitor-app-server/data
 
 var mongoose = require('mongoose');
 	mongoose.connect('mongodb://localhost:27017/monitorapp', { useMongoClient: true });
