@@ -4,8 +4,17 @@
 		"one": "At home with %s visitor",
 		"other": "At home with %s visitors"
 	},
-	"STATUS_NOT_HOME": "Outisde home",
+	"STATUS_NOT_HOME": "Outside home",
 	"NO_LAST_MOVEMENT": "No movement detected",
 	"NO_MEDICINE_DETECTED": "No medicine activity detected",
-	"NO_FALL_DETECTED": "No fall detected"
+	"NO_FALL_DETECTED": "No fall detected",
+
+	"PUSH_NOTIFICATION_TITLE_EVENT_HAPPENED": "An event happened",
+	"PUSH_NOTIFICATION_TITLE_ATTENTION": "Attention required",
+	"PUSH_NOTIFICATION_BODY_FALL": "The monitored has fallen.",
+	"PUSH_NOTIFICATION_BODY_RETURN_HOME": "The monitored has returned home.",
+	"PUSH_NOTIFICATION_BODY_LEFT_HOME": "The monitored has left home.",
+	"PUSH_NOTIFICATION_BODY_TOOK_MEDICINE": "The monitored has taken the medicine.",
+	"PUSH_NOTIFICATION_BODY_IDLNESS": "The monitored is not moving for a long time.",
+	"PUSH_NOTIFICATION_BODY_NO_MEDICINE": "The monitored did not take the medicine in the correct time."
 }
