@@ -9,6 +9,14 @@ var sensors = require('./routes/sensors');
 var mobile = require('./routes/mobile');
 var preferences = require('./routes/preferences');
 
+var admin = require('firebase-admin');
+
+var serviceAccount = require('./firebase/serviceAccountKey.json');
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
 var app = express();
 
 app.use(logger('dev'));
