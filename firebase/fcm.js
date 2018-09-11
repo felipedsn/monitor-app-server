@@ -11,7 +11,8 @@ module.exports = {
 		    notification: {
 		      title: title,
 		      body: body,
-		      color: '#ff0000'
+		      color: '#ff0000',
+		      sound: "default"
 		    }
 		  },
 		  topic: 'monitor'
