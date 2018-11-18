@@ -5,7 +5,7 @@ var statesRepository = require('../repositories/statesRepository')
 var sensorsRepository = require('../repositories/sensorsRepository')
 
 router.get('/home-status', function(req, res) {
-	console.log("Receive GET to /home-status");
+	console.log("[" + (new Date()).toLocaleString() + "]" + "Receive GET to /home-status");
 
   statesRepository.respondStates(res, function(result) {
     var numberOfPeople = result.states.numberOfPeople;
@@ -22,11 +22,11 @@ router.get('/home-status', function(req, res) {
 });
 
 router.get('/last-movement', function(req, res) {
-	console.log("Receive GET to /last-movement");
+	console.log("[" + (new Date()).toLocaleString() + "]" + "Receive GET to /last-movement");
 
   sensorsRepository.getLastMovementRegistry(function(err, post) {
     if(err) {
-      console.log("Some error happened when returning last movement: " + err.message);
+      console.log("[" + (new Date()).toLocaleString() + "]" + "Some error happened when returning last movement: " + err.message);
       res.status(400);
       res.send(err);
     } else if (post !== null) {
@@ -38,11 +38,11 @@ router.get('/last-movement', function(req, res) {
 });
 
 router.get('/last-medicine', function(req, res) {
-	console.log("Receive GET to /last-medicine");
+	console.log("[" + (new Date()).toLocaleString() + "]" + "Receive GET to /last-medicine");
 
   sensorsRepository.getLastMedicineRegistry(function(err, post) {
     if(err) {
-      console.log("Some error happened when returning last medicine: " + err.message);
+      console.log("[" + (new Date()).toLocaleString() + "]" + "Some error happened when returning last medicine: " + err.message);
       res.status(400);
       res.send(err);
     } else if (post !== null) {
@@ -54,11 +54,11 @@ router.get('/last-medicine', function(req, res) {
 });
 
 router.get('/last-fall', function(req, res) {
-	console.log("Receive GET to /last-fall");
+	console.log("[" + (new Date()).toLocaleString() + "]" + "Receive GET to /last-fall");
 
   sensorsRepository.getLastFallRegistry(function(err, post) {
     if(err) {
-      console.log("Some error happened when returning last fall: " + err.message);
+      console.log("[" + (new Date()).toLocaleString() + "]" + "Some error happened when returning last fall: " + err.message);
       res.status(400);
       res.send(err);
     } else if (post !== null) {

@@ -8,12 +8,12 @@ module.exports = {
 	getStates: function(callback) {
 		fs.readFile(xmlFile, "utf-8", function (err, text) {
 	        if (err) {
-	        	console.log("Error reading XML states file: " + err.message);
+	        	console.log("[" + (new Date()).toLocaleString() + "]" + "Error reading XML states file: " + err.message);
 				return;
 	        } else {
 	            parser.parseString(text, function (err, result) {
 	            	if (err) {
-	            		console.log("Error parsing XML states file: " + err.message);
+	            		console.log("[" + (new Date()).toLocaleString() + "]" + "Error parsing XML states file: " + err.message);
 						return;
 	            	}
 	            	callback(result);
@@ -25,13 +25,13 @@ module.exports = {
 	respondStates: function(res, callback) {
 		fs.readFile(xmlFile, "utf-8", function (err, text) {
 	        if (err) {
-	        	console.log("Error reading XML states file: " + err.message);
+	        	console.log("[" + (new Date()).toLocaleString() + "]" + "Error reading XML states file: " + err.message);
 				res.status(400);
 				res.send(err);
 	        } else {
 	            parser.parseString(text, function (err, result) {
 	            	if (err) {
-	            		console.log("Error parsing XML states file: " + err.message);
+	            		console.log("[" + (new Date()).toLocaleString() + "]" + "Error parsing XML states file: " + err.message);
 						res.status(400);
 						res.send(err);
 	            	}
@@ -44,12 +44,12 @@ module.exports = {
 	updateNumberOfPeople: function(update) {
 		fs.readFile(xmlFile, "utf-8", function (err, text) {
 	        if (err) {
-	        	console.log("Error reading XML states file: " + err.message);
+	        	console.log("[" + (new Date()).toLocaleString() + "]" + "Error reading XML states file: " + err.message);
 				return;
 	        } else {
 	            parser.parseString(text, function (err, result) {
 	            	if (err) {
-	            		console.log("Error parsing XML states file: " + err.message);
+	            		console.log("[" + (new Date()).toLocaleString() + "]" + "Error parsing XML states file: " + err.message);
 						return;
 	            	}
 	                var updatedValue = (Number(result.states.numberOfPeople) + update).toString();
@@ -59,10 +59,10 @@ module.exports = {
 	        		var xmlText = builder.buildObject(result);
 	        		fs.writeFile(xmlFile, xmlText, function(err, data){
 	            		if (err) {
-	            			console.log("Error updating number of people in XML states file: " + err.message);
+	            			console.log("[" + (new Date()).toLocaleString() + "]" + "Error updating number of people in XML states file: " + err.message);
 	            			return;
 	            		}
-	            		console.log("Successfully updated number of people in XML states file!");
+	            		console.log("[" + (new Date()).toLocaleString() + "]" + "Successfully updated number of people in XML states file!");
 	       			})
 	       			return;
 	            });
@@ -73,13 +73,13 @@ module.exports = {
 	updatePreferences: function(req, res) {
 		fs.readFile(xmlFile, "utf-8", function (err, text) {
 	        if (err) {
-	        	console.log("Error reading XML states file: " + err.message);
+	        	console.log("[" + (new Date()).toLocaleString() + "]" + "Error reading XML states file: " + err.message);
 				res.status(400);
 				res.send(err);
 	        } else {
 	            parser.parseString(text, function (err, result) {
 	            	if (err) {
-	            		console.log("Error parsing XML states file: " + err.message);
+	            		console.log("[" + (new Date()).toLocaleString() + "]" + "Error parsing XML states file: " + err.message);
 						res.status(400);
 						res.send(err);
 	            	}
@@ -99,9 +99,9 @@ module.exports = {
 	        		var xmlText = builder.buildObject(result);
 	        		fs.writeFile(xmlFile, xmlText, function(err, data){
 	            		if (err) {
-	            			console.log("Error writing to XML states file: " + err.message);
+	            			console.log("[" + (new Date()).toLocaleString() + "]" + "Error writing to XML states file: " + err.message);
 	            		}
-	            		console.log("Successfully update XML states file!");
+	            		console.log("[" + (new Date()).toLocaleString() + "]" + "Successfully update XML states file!");
 	       			})
 	       			res.status(200);
         			res.send(req.body);
@@ -113,13 +113,13 @@ module.exports = {
 	updateMedicineTime: function(req, res) {
 		fs.readFile(xmlFile, "utf-8", function (err, text) {
 	        if (err) {
-	        	console.log("Error reading XML states file: " + err.message);
+	        	console.log("[" + (new Date()).toLocaleString() + "]" + "Error reading XML states file: " + err.message);
 				res.status(400);
 				res.send(err);
 	        } else {
 	            parser.parseString(text, function (err, result) {
 	            	if (err) {
-	            		console.log("Error parsing XML states file: " + err.message);
+	            		console.log("[" + (new Date()).toLocaleString() + "]" + "Error parsing XML states file: " + err.message);
 						res.status(400);
 						res.send(err);
 	            	}
@@ -135,9 +135,9 @@ module.exports = {
 	        		var xmlText = builder.buildObject(result);
 	        		fs.writeFile(xmlFile, xmlText, function(err, data){
 	            		if (err) {
-	            			console.log("Error writing to XML states file: " + err.message);
+	            			console.log("[" + (new Date()).toLocaleString() + "]" + "Error writing to XML states file: " + err.message);
 	            		}
-	            		console.log("Successfully update XML states file!"); 
+	            		console.log("[" + (new Date()).toLocaleString() + "]" + "Successfully update XML states file!"); 
 	       			}) 
 	       			res.status(200);
 	                res.send(req.body);

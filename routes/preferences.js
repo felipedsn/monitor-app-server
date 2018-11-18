@@ -3,7 +3,7 @@ var router = express.Router();
 var statesRepository = require('../repositories/statesRepository')
 
 router.get('/', function(req, res) {
-	console.log("Receive GET to /mobile/preferences");
+	console.log("[" + (new Date()).toLocaleString() + "]" + "Receive GET to /mobile/preferences");
 
     statesRepository.respondStates(res, function(result) {
         var medicineHour = result.states.medicineTime.hour;
@@ -20,13 +20,13 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-	console.log("Receive POST to /mobile/preferences");
+	console.log("[" + (new Date()).toLocaleString() + "]" + "Receive POST to /mobile/preferences");
 
     statesRepository.updatePreferences(req, res);
 });
 
 router.get('/medicine-time', function(req, res) {
-	console.log("Receive GET to /mobile/preferences/medicine-time");
+	console.log("[" + (new Date()).toLocaleString() + "]" + "Receive GET to /mobile/preferences/medicine-time");
 
     statesRepository.respondStates(res, function(result) {
         var hour = result.states.medicineTime.hour;
@@ -37,7 +37,7 @@ router.get('/medicine-time', function(req, res) {
 });
 
 router.post('/sleep-time', function(req, res) {
-	console.log("Receive POST to /mobile/preferences/sleep-time");
+	console.log("[" + (new Date()).toLocaleString() + "]" + "Receive POST to /mobile/preferences/sleep-time");
 
     statesRepository.updateMedicineTime(req, res);
 });

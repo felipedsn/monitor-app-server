@@ -14,7 +14,7 @@ function itsBeenLessThanInterval(lastEntryDate) {
 
 /* Insert sensor notification in database */
 router.post('/', function(req, res) {
-	console.log("Receive POST to /sensors: " + req.body);
+	console.log("[" + (new Date()).toLocaleString() + "]" + "Receive POST to /sensors: " + req.body);
 
 	var type =  req.body.type;
 	var info = req.body.info;
@@ -28,7 +28,7 @@ router.post('/', function(req, res) {
 		} else if (info == "main") {
 			sensorsRepository.getLastMainRegistry(function(err, post) {
 				if(err) {
-					console.log("Some error happened when checking Return Home event: " + err.message);
+					console.log("[" + (new Date()).toLocaleString() + "]" + "Some error happened when checking Return Home event: " + err.message);
 				} else if (post !== null && post.type == "passage" && itsBeenLessThanInterval(post.createdDate)) {
 					//If current number of people is zero, then send push notification Return Home
 					statesRepository.getStates(function(result) {
@@ -38,7 +38,7 @@ router.post('/', function(req, res) {
 						}
 
 						//Someone entered the house, so update is plus one
-						console.log("Someone entered the house.");
+						console.log("[" + (new Date()).toLocaleString() + "]" + "Someone entered the house.");
 						statesRepository.updateNumberOfPeople(1);
 					});	
 				}
@@ -55,7 +55,7 @@ router.post('/', function(req, res) {
 		} else if (info == "main") {
 			sensorsRepository.getLastMainRegistry(function(err, post) {
 				if(err) {
-					console.log("Some error happened when checking Left Home event: " + err.message);
+					console.log("[" + (new Date()).toLocaleString() + "]" + "Some error happened when checking Left Home event: " + err.message);
 				} else if (post !== null && post.type == "door" && itsBeenLessThanInterval(post.createdDate)) {
 					//If current number of people is one, then send push notification Left Home
 					statesRepository.getStates(function(result) {
@@ -65,7 +65,7 @@ router.post('/', function(req, res) {
 						}
 
 						//Someone left the house, so update is minus one
-						console.log("Someone left the house.");
+						console.log("[" + (new Date()).toLocaleString() + "]" + "Someone left the house.");
 						statesRepository.updateNumberOfPeople(-1);
 					});	
 				}
@@ -90,11 +90,11 @@ router.post('/', function(req, res) {
 	}
 	sensorsRepository.save(post, function(err) {
 		if(err) {
-			console.log("Error saving in database: " + err.message);
+			console.log("[" + (new Date()).toLocaleString() + "]" + "Error saving in database: " + err.message);
 			res.status(400);
 			res.send(err);
 		} else {
-			console.log("Post saved!");
+			console.log("[" + (new Date()).toLocaleString() + "]" + "Post saved!");
 			res.status(200);
 			res.send(req.body);
 		}
