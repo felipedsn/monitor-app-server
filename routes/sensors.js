@@ -14,7 +14,7 @@ function itsBeenLessThanInterval(lastEntryDate) {
 
 /* Insert sensor notification in database */
 router.post('/', function(req, res) {
-	console.log("[" + (new Date()).toLocaleString() + "] " + "POST to /sensors: " + req.body);
+	console.log("[" + (new Date()).toLocaleString() + "] " + "POST to /sensors: " + JSON.stringify(req.body));
 
 	var type =  req.body.type;
 	var info = req.body.info;
