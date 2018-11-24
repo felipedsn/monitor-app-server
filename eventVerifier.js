@@ -35,31 +35,31 @@ function updateStates(callback) {
 }
 
 function verifyIdleness() {
-	console.log("[" + (new Date()).toLocaleString() + "]" + "Verifying idleness");
+	console.log("[" + (new Date()).toLocaleString() + "] " + "Verifying idleness");
 	//If passed X time since last movement detection and is not in the sleeping time, then send push notification Idleness
 	if(!isBetweenSleepTime()) {
 		sensorsRepository.getLastMovementRegistry(function(err, post) {
 			if(err) {
-				console.log("[" + (new Date()).toLocaleString() + "]" + "Some error happened when verifying idleness: " + err.message);
+				console.log("[" + (new Date()).toLocaleString() + "] " + "Some error happened when verifying idleness: " + err.message);
 			} else if (post !== null) {
 	      		if(itsBeenMoreThanInterval(post.createdDate, CONSTANTS.IDLENESS_INTERVAL)) {
-	      			console.log("[" + (new Date()).toLocaleString() + "]" + "Idlness detected, sending push notification");
+	      			console.log("[" + (new Date()).toLocaleString() + "] " + "Idlness detected, sending push notification");
 	      			//TODO send time by parameter
 	      			fcm.sendPushNotification(__("PUSH_NOTIFICATION_TITLE_ATTENTION"), __("PUSH_NOTIFICATION_BODY_IDLNESS"));
 	      		}
 		    } 
 		});
 	} else {
-		console.log("[" + (new Date()).toLocaleString() + "]" + "Monitored is in sleep time ");
+		console.log("[" + (new Date()).toLocaleString() + "] " + "Monitored is in sleep time ");
 	}
 }
 
 function verifyMedicineTime() {
-	console.log("[" + (new Date()).toLocaleString() + "]" + "Verifying medicine time");
+	console.log("[" + (new Date()).toLocaleString() + "] " + "Verifying medicine time");
 	//If passed X time since the configured time to take medicine and no medicine event happened, then send push notification Didn't take medicine
 	sensorsRepository.getLastMedicineRegistry(function(err, post) {
 		if(err) {
-				console.log("[" + (new Date()).toLocaleString() + "]" + "Some error happened when verifying medicine time: " + err.message);
+				console.log("[" + (new Date()).toLocaleString() + "] " + "Some error happened when verifying medicine time: " + err.message);
 		} else if (post !== null) {
       		var dateNow = moment();
 			var nowInMinutes = (dateNow.hour()*60) + dateNow.minute();
@@ -71,14 +71,18 @@ function verifyMedicineTime() {
 
 	      		if(diffLastMedicineInSeconds >= CONSTANTS.PRE_MEDICINE_INTERVAL) {
 	      			if(diffNowInSeconds >= CONSTANTS.POST_MEDICINE_INTERVAL) {
-	      				console.log("[" + (new Date()).toLocaleString() + "]" + "No medicine detected, sending push notification");
+	      				console.log("[" + (new Date()).toLocaleString() + "] " + "No medicine event detected, sending push notification");
 	      				fcm.sendPushNotification(__("PUSH_NOTIFICATION_TITLE_ATTENTION"), __("PUSH_NOTIFICATION_BODY_NO_MEDICINE"));
 	      			}
+	      		} else {
+	      			console.log("[" + (new Date()).toLocaleString() + "] " + "Medicine event detected");
 	      		}
       		} else {
       			if(diffNowInSeconds >= CONSTANTS.POST_MEDICINE_INTERVAL) {
-      				console.log("[" + (new Date()).toLocaleString() + "]" + "No medicine detected, sending push notification");
+      				console.log("[" + (new Date()).toLocaleString() + "] " + "No medicine event detected, sending push notification");
       				fcm.sendPushNotification(__("PUSH_NOTIFICATION_TITLE_ATTENTION"), __("PUSH_NOTIFICATION_BODY_NO_MEDICINE"));
+      			} else {
+      				console.log("[" + (new Date()).toLocaleString() + "] " + "Medicine event detected");
       			}
       		}
       	} 
@@ -113,10 +117,10 @@ function itsBeenMoreThanInterval(lastEntryDate, interval) {
 
 function verifyEvents() {
 	updateStates(function() {
-		console.log("[" + (new Date()).toLocaleString() + "]" + "Event verifier triggered");
+		console.log("[" + (new Date()).toLocaleString() + "] " + "Event verifier triggered");
 		verifyMedicineTime();
 		if(isHome) {
-			console.log("[" + (new Date()).toLocaleString() + "]" + "Monitored is in home");
+			console.log("[" + (new Date()).toLocaleString() + "] " + "Monitored is in home");
 			verifyIdleness();
 		}
 	});

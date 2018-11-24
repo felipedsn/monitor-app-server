@@ -3,7 +3,7 @@ var admin = require('firebase-admin');
 module.exports = {
 
 	sendPushNotification: function(title, body) {
-		console.log("[" + (new Date()).toLocaleString() + "]" + "Sending Push Notification message:\nTitle: " + title + "\nBody: " + body);
+		console.log("[" + (new Date()).toLocaleString() + "] " + "Sending Push Notification message:\nTitle: " + title + "\nBody: " + body);
 
 		var message = {
 		  android: {
@@ -21,10 +21,10 @@ module.exports = {
 		admin.messaging().send(message)
 			.then((response) => {
 				// Response is a message ID string.
-				console.log("[" + (new Date()).toLocaleString() + "]" + 'Successfully sent message:', response);
+				console.log("[" + (new Date()).toLocaleString() + "] " + 'Successfully sent message:', response);
 			})
 			.catch((error) => {
-				console.log("[" + (new Date()).toLocaleString() + "]" + 'Error sending message:', error);
+				console.log("[" + (new Date()).toLocaleString() + "] " + 'Error sending message:', error);
 			});
 	}
 }
