@@ -43,9 +43,11 @@ function verifyIdleness() {
 				console.log("[" + (new Date()).toLocaleString() + "] " + "Some error happened when verifying idleness: " + err.message);
 			} else if (post !== null) {
 	      		if(itsBeenMoreThanInterval(post.createdDate, CONSTANTS.IDLENESS_INTERVAL)) {
-	      			console.log("[" + (new Date()).toLocaleString() + "] " + "Idlness detected, sending push notification");
+	      			console.log("[" + (new Date()).toLocaleString() + "] " + "Idleness detected, sending push notification");
 	      			//TODO send time by parameter
 	      			fcm.sendPushNotification(__("PUSH_NOTIFICATION_TITLE_ATTENTION"), __("PUSH_NOTIFICATION_BODY_IDLNESS"));
+	      		} else {
+	      			console.log("[" + (new Date()).toLocaleString() + "] " + "No idleness event detected");
 	      		}
 		    } 
 		});
