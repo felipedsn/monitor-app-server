@@ -122,8 +122,9 @@ function verifyEvents() {
 		console.log("[" + (new Date()).toLocaleString() + "] " + "Event verifier triggered");
 		verifyMedicineTime();
 		if(isHome) {
-			console.log("[" + (new Date()).toLocaleString() + "] " + "Monitored is in home");
 			verifyIdleness();
+		} else {
+			console.log("[" + (new Date()).toLocaleString() + "] " + "Monitored is not in home so the idleness verification will be made");
 		}
 	});
 }
